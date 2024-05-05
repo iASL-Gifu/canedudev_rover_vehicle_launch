@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://ros.org/wiki/xacro">
+<robot name="canedudev_rover" xmlns:xacro="http://ros.org/wiki/xacro">
   <!-- load parameter -->
   <xacro:property name="vehicle_info" value="${xacro.load_yaml('$(find canedudev_rover_vehicle_description)/config/vehicle_info.param.yaml')}"/>
 
   <!-- vehicle body -->
   <link name="base_link">
     <visual>
-      <origin xyz="${vehicle_info['/**']['ros__parameters']['wheel_base']/2.0} 0 0" rpy="${pi/2.0} 0 ${pi}"/>
+      <origin xyz="${vehicle_info['/**']['ros__parameters']['wheel_base']/2.0} 0 0" rpy="0 0 0"/>
       <geometry>
         <mesh filename="package://canedudev_rover_vehicle_description/mesh/canedudev_rover.dae" scale="1 1 1"/>
       </geometry>
