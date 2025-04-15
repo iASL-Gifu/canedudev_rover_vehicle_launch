@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+  <arg name="vehicle_id" default="$(env VEHICLE_ID default)"/>
+  <arg name="vehicle_interface_dir" default="$(find-pkg-share canedudev_rover_vehicle_interface)"/>
+
+  <!-- receives input from a joystick device -->
+  <node pkg="joy" exec="joy_node" output="screen"/>
+
+  <!-- receives control commands from Autoware and sends them to the vehicle -->
+  <node pkg="canedudev_rover_vehicle_interface" exec="vehicle_command_sender" name="vehicle_command_sender" output="screen">
+    <param from="/home/apollo-22/exp_ws/src/canedudev_rover_vehicle_interface/config/vehicle_command_sender.yaml"/>
+    <param from="$(var vehicle_interface_dir)/config/vehicle_command_sender.yaml"/>
+  </node>
+
+  <!-- receives state information from the vehicle and publishes it for Autoware -->
+  <node pkg="canedudev_rover_vehicle_interface" exec="vehicle_state_receiver" name="vehicle_state_receiver" output="screen">
+    <param from="$(var vehicle_interface_dir)/config/vehicle_state_receiver.yaml"/>
+  </node>
+</launch>
